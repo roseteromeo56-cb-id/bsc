@@ -467,6 +467,10 @@ func inspectTrie(ctx *cli.Context) error {
 			if err != nil {
 				return fmt.Errorf("failed to parse topn, Args[1]: %v, err: %v", ctx.Args().Get(1), err)
 			}
+			// Ensure topN is within the bounds of int
+			if topN > math.MaxInt32 {
+				return fmt.Errorf("topN exceeds maximum value for int: %v", topN)
+			}
 		}
 
 		if blockNumber != math.MaxUint64 {
