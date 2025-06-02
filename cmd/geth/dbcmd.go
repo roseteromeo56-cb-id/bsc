@@ -451,6 +451,10 @@ func inspectTrie(ctx *cli.Context) error {
 			if err != nil {
 				return fmt.Errorf("failed to parse jobnum, Args[1]: %v, err: %v", ctx.Args().Get(1), err)
 			}
+			// Ensure jobnum is within the bounds of int64
+			if jobnum > math.MaxInt64 {
+				return fmt.Errorf("jobnum exceeds maximum value for int64: %v", jobnum)
+			}
 			topN = 10
 		} else {
 			var err error
